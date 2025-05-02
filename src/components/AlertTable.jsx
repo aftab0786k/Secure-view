@@ -10,17 +10,17 @@ const formatDate = (timestamp) => {
 
 const getSeverityClass = (severity) => {
   switch (severity) {
-    case 3: return 'bg-gradient-to-br from-red-900/30 via-red-800/20 to-red-900/30 text-red-300 border-red-700/50';
-    case 2: return 'bg-gradient-to-br from-amber-900/30 via-amber-800/20 to-amber-900/30 text-amber-300 border-amber-700/50';
-    case 1: return 'bg-gradient-to-br from-emerald-900/30 via-emerald-800/20 to-emerald-900/30 text-emerald-300 border-emerald-700/50';
-    default: return 'bg-gradient-to-br from-blue-900/30 via-blue-800/20 to-blue-900/30 text-blue-300 border-blue-700/50';
+    case 3: return 'bg-gradient-to-br from-purple-900/40 via-purple-800/30 to-red-900/40 text-red-300 border-red-700/50';
+    case 2: return 'bg-gradient-to-br from-purple-900/40 via-purple-800/30 to-amber-900/40 text-amber-300 border-amber-700/50';
+    case 1: return 'bg-gradient-to-br from-purple-900/40 via-purple-800/30 to-emerald-900/40 text-emerald-300 border-emerald-700/50';
+    default: return 'bg-gradient-to-br from-purple-900/40 via-purple-800/30 to-blue-900/40 text-blue-300 border-blue-700/50';
   }
 };
 
 const getActionClass = (action) => {
   return action === 'blocked' 
-    ? 'bg-gradient-to-br from-red-900/30 via-red-800/20 to-red-900/30 text-red-300 border-red-700/50'
-    : 'bg-gradient-to-br from-green-900/30 via-green-800/20 to-green-900/30 text-green-300 border-green-700/50';
+    ? 'bg-gradient-to-br from-purple-900/40 via-purple-800/30 to-red-900/40 text-red-300 border-red-700/50'
+    : 'bg-gradient-to-br from-purple-900/40 via-purple-800/30 to-green-900/40 text-green-300 border-green-700/50';
 };
 
 const AlertTable = () => {
@@ -69,19 +69,19 @@ const AlertTable = () => {
         {/* Modal Container */}
         <div className={`
           relative w-full max-w-2xl max-h-[85vh] overflow-hidden
-          bg-gray-900 border border-gray-600 rounded-lg shadow-xl
+          bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 border border-purple-500/30 rounded-lg shadow-xl
           transform transition-all duration-200
           ${isMobile ? 'mx-4 my-6' : ''}
         `}>
           {/* Modal Header */}
-          <div className="p-4 border-b border-gray-700 bg-gray-800 flex justify-between items-center">
+          <div className="p-4 border-b border-purple-500/20 bg-gradient-to-r from-purple-900/40 via-gray-800 to-purple-900/40 flex justify-between items-center">
             <h3 className="text-lg font-semibold text-white flex items-center">
-              <FiAlertTriangle className="mr-2 text-yellow-400" />
+              <FiAlertTriangle className="mr-2 text-purple-400" />
               Alert Details
             </h3>
             <button 
               onClick={handleCloseDetails}
-              className="p-1 rounded-md hover:bg-gray-700 text-gray-300 hover:text-white transition-colors"
+              className="p-1 rounded-md hover:bg-purple-900/30 text-gray-300 hover:text-white transition-colors"
             >
               <FiX size={20} />
             </button>
@@ -91,7 +91,7 @@ const AlertTable = () => {
           <div className="overflow-y-auto max-h-[calc(85vh-120px)] p-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-1">
-                <div className="flex items-center text-gray-400 text-sm">
+                <div className="flex items-center text-purple-300 text-sm">
                   <FiClock className="mr-2" />
                   <span>Timestamp</span>
                 </div>
@@ -101,7 +101,7 @@ const AlertTable = () => {
               </div>
               
               <div className="space-y-1">
-                <div className="flex items-center text-gray-400 text-sm">
+                <div className="flex items-center text-purple-300 text-sm">
                   <FiGlobe className="mr-2" />
                   <span>Protocol</span>
                 </div>
@@ -111,7 +111,7 @@ const AlertTable = () => {
               </div>
               
               <div className="space-y-1">
-                <div className="flex items-center text-gray-400 text-sm">
+                <div className="flex items-center text-purple-300 text-sm">
                   <FiLayers className="mr-2" />
                   <span>Source</span>
                 </div>
@@ -121,7 +121,7 @@ const AlertTable = () => {
               </div>
               
               <div className="space-y-1">
-                <div className="flex items-center text-gray-400 text-sm">
+                <div className="flex items-center text-purple-300 text-sm">
                   <FiLayers className="mr-2" />
                   <span>Destination</span>
                 </div>
@@ -132,7 +132,7 @@ const AlertTable = () => {
             </div>
             
             <div className="mt-4 space-y-1">
-              <div className="flex items-center text-gray-400 text-sm">
+              <div className="flex items-center text-purple-300 text-sm">
                 <FiAlertTriangle className="mr-2" />
                 <span>Alert Signature</span>
               </div>
@@ -143,7 +143,7 @@ const AlertTable = () => {
             
             <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-1">
-                <div className="flex items-center text-gray-400 text-sm">
+                <div className="flex items-center text-purple-300 text-sm">
                   <FiShield className="mr-2" />
                   <span>Severity</span>
                 </div>
@@ -155,7 +155,7 @@ const AlertTable = () => {
               </div>
               
               <div className="space-y-1">
-                <div className="flex items-center text-gray-400 text-sm">
+                <div className="flex items-center text-purple-300 text-sm">
                   <FiShield className="mr-2" />
                   <span>Action</span>
                 </div>
@@ -169,10 +169,10 @@ const AlertTable = () => {
           </div>
           
           {/* Modal Footer */}
-          <div className="p-4 border-t border-gray-700 bg-gray-800">
+          <div className="p-4 border-t border-purple-500/20 bg-gradient-to-r from-purple-900/40 via-gray-800 to-purple-900/40">
             <button 
               onClick={handleCloseDetails}
-              className="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded-md text-white transition-colors text-sm font-medium"
+              className="w-full py-2 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 rounded-md text-white transition-all text-sm font-medium shadow-lg"
             >
               Close
             </button>
@@ -185,32 +185,32 @@ const AlertTable = () => {
   return (
     <div className="relative h-full flex flex-col">
       {/* Custom Scroll Container */}
-      <div className="flex-1 overflow-hidden rounded-xl border border-gray-700/50 bg-gray-900/50 backdrop-blur-sm shadow-2xl">
+      <div className="flex-1 overflow-hidden rounded-xl border border-purple-500/20 bg-gradient-to-br from-gray-900/70 via-gray-800/70 to-gray-900/70 backdrop-blur-sm shadow-2xl">
         {/* Table Container with Custom Scrollbar */}
         <div className="h-full overflow-y-auto custom-scroll">
-          <table className="w-full divide-y divide-gray-700/50">
-            <thead className="sticky top-0 z-10 bg-gray-900/80 backdrop-blur-sm">
+          <table className="w-full divide-y divide-purple-500/20">
+            <thead className="sticky top-0 z-10 bg-gradient-to-r from-purple-900/40 via-gray-800 to-purple-900/40 backdrop-blur-sm">
               <tr>
                 {['Timestamp', 'Source IP', 'Destination', 'Alert', 'Severity', 'Action'].map((header) => (
                   <th 
                     key={header}
-                    className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                    className="px-6 py-4 text-left text-xs font-medium text-purple-300 uppercase tracking-wider"
                   >
                     {header}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-700/30">
+            <tbody className="divide-y divide-purple-500/10">
               {displayedAlerts.map((alert, index) => (
                 <tr 
                   key={index}
                   onClick={() => handleAlertClick(alert)}
-                  className="hover:bg-gray-800/20 cursor-pointer transition-all duration-150 group"
+                  className="hover:bg-purple-900/10 cursor-pointer transition-all duration-150 group"
                 >
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <FiClock className="mr-2 text-gray-500 group-hover:text-blue-400 transition-colors" />
+                      <FiClock className="mr-2 text-purple-400/70 group-hover:text-purple-300 transition-colors" />
                       <span className="text-sm text-gray-300 group-hover:text-white transition-colors">
                         {formatDate(alert.timestamp)}
                       </span>
@@ -249,9 +249,9 @@ const AlertTable = () => {
       </div>
       
       {/* Pagination */}
-      <div className="mt-4 px-4 py-3 rounded-xl border border-gray-700/50 bg-gray-900/50 flex items-center justify-between backdrop-blur-sm">
-        <div className="text-sm text-gray-400">
-          Showing <span className="font-medium text-gray-300">{(currentPage - 1) * pageSize + 1}-{Math.min(currentPage * pageSize, securityAlerts.length)}</span> of <span className="font-medium text-gray-300">{securityAlerts.length}</span> alerts
+      <div className="mt-4 px-4 py-3 rounded-xl border border-purple-500/20 bg-gradient-to-br from-gray-900/70 via-gray-800/70 to-gray-900/70 flex items-center justify-between backdrop-blur-sm">
+        <div className="text-sm text-purple-300">
+          Showing <span className="font-medium text-white">{(currentPage - 1) * pageSize + 1}-{Math.min(currentPage * pageSize, securityAlerts.length)}</span> of <span className="font-medium text-white">{securityAlerts.length}</span> alerts
         </div>
         <div className="flex space-x-2">
           <button 
@@ -260,7 +260,7 @@ const AlertTable = () => {
             className={`flex items-center px-3 py-1.5 rounded-lg text-sm transition-all ${
               currentPage === 1 
                 ? 'bg-gray-800/30 text-gray-500 cursor-not-allowed' 
-                : 'bg-gradient-to-r from-blue-900/40 to-blue-800/40 text-blue-300 hover:from-blue-800/50 hover:to-blue-700/50 shadow-md'
+                : 'bg-gradient-to-r from-purple-900/50 to-purple-800/50 text-purple-300 hover:from-purple-800/60 hover:to-purple-700/60 shadow-md'
             }`}
           >
             <FiChevronLeft className="mr-1" /> Previous
@@ -271,7 +271,7 @@ const AlertTable = () => {
             className={`flex items-center px-3 py-1.5 rounded-lg text-sm transition-all ${
               currentPage === totalPages 
                 ? 'bg-gray-800/30 text-gray-500 cursor-not-allowed' 
-                : 'bg-gradient-to-r from-blue-900/40 to-blue-800/40 text-blue-300 hover:from-blue-800/50 hover:to-blue-700/50 shadow-md'
+                : 'bg-gradient-to-r from-purple-900/50 to-purple-800/50 text-purple-300 hover:from-purple-800/60 hover:to-purple-700/60 shadow-md'
             }`}
           >
             Next <FiChevronRight className="ml-1" />
@@ -289,7 +289,7 @@ const AlertTable = () => {
       <style>{`
         .custom-scroll {
           scrollbar-width: thin;
-          scrollbar-color: rgba(99, 102, 241, 0.5) rgba(17, 24, 39, 0.5);
+          scrollbar-color: rgba(168, 85, 247, 0.5) rgba(17, 24, 39, 0.5);
         }
         .custom-scroll::-webkit-scrollbar {
           width: 8px;
@@ -300,11 +300,11 @@ const AlertTable = () => {
           border-radius: 10px;
         }
         .custom-scroll::-webkit-scrollbar-thumb {
-          background-color: rgba(99, 102, 241, 0.5);
+          background-color: rgba(168, 85, 247, 0.5);
           border-radius: 10px;
         }
         .custom-scroll::-webkit-scrollbar-thumb:hover {
-          background-color: rgba(99, 102, 241, 0.7);
+          background-color: rgba(168, 85, 247, 0.7);
         }
       `}</style>
     </div>

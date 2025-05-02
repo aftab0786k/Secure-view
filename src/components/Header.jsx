@@ -40,10 +40,10 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
       }`}
       style={{
         background: scrolled
-          ? 'linear-gradient(135deg, rgba(8,20,32,0.95) 0%, rgba(12,25,40,0.95) 100%)'
-          : 'linear-gradient(135deg, #081420 0%, #0c1928 100%)',
+          ? 'linear-gradient(135deg, rgba(15,10,30,0.98) 0%, rgba(35,20,60,0.97) 100%)'
+          : 'linear-gradient(135deg, #0f0a1e 0%, #23143c 100%)',
         borderBottom: scrolled 
-          ? '1px solid rgba(72,187,120,0.15)'
+          ? '1px solid rgba(158, 119, 237, 0.25)'
           : 'none',
         height: '76px',
       }}
@@ -52,7 +52,7 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
         <div className="flex items-center">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="text-emerald-400 hover:text-cyan-300 focus:outline-none transition-all duration-300 lg:hidden mr-3"
+            className="text-purple-300 hover:text-purple-100 focus:outline-none transition-all duration-300 lg:hidden mr-3"
             aria-label={sidebarOpen ? 'Close sidebar' : 'Open sidebar'}
           >
             <svg className="h-7 w-7 fill-current" viewBox="0 0 24 24">
@@ -97,12 +97,13 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
                       y2="22"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop stopColor="#48BB78" />
-                      <stop offset="1" stopColor="#38B2AC" />
+                      <stop stopColor="#9E77ED" />
+                      <stop offset="0.5" stopColor="#7E5BEF" />
+                      <stop offset="1" stopColor="#6C4AFF" />
                     </linearGradient>
                   </defs>
                 </svg>
-                <span className="text-xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                <span className="text-xl font-bold bg-gradient-to-r from-purple-300 via-indigo-300 to-blue-300 bg-clip-text text-transparent">
                   Secure-View
                 </span>
               </div>
@@ -112,25 +113,25 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
 
         <div className="flex items-center space-x-5">
           <div className="hidden md:flex flex-col items-end">
-            <div className="text-xs text-cyan-400/80 font-medium tracking-wide">
+            <div className="text-xs text-purple-200/80 font-medium tracking-wide">
               {formattedDate}
             </div>
-            <div className="text-sm font-semibold bg-gradient-to-r from-emerald-300 to-cyan-300 bg-clip-text text-transparent">
+            <div className="text-sm font-semibold bg-gradient-to-r from-purple-200 to-blue-200 bg-clip-text text-transparent">
               {formattedTime}
             </div>
           </div>
 
           <div className="relative">
             <button className="flex items-center focus:outline-none group transform transition-all duration-300 hover:scale-[1.02]">
-              <div className="h-9 w-9 rounded-full flex items-center justify-center relative overflow-hidden border border-cyan-500/20">
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/80 to-cyan-600/80 opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="h-9 w-9 rounded-full flex items-center justify-center relative overflow-hidden border border-purple-500/30 shadow-[0_0_10px_rgba(158,119,237,0.3)]">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-600/90 to-indigo-600/90 opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
                 <span className="text-white font-medium text-sm relative z-10">
                   AM
                 </span>
               </div>
-              <span className="ml-3 text-sm font-medium hidden md:block text-cyan-200 group-hover:text-cyan-50 transition-colors duration-300">
+              <span className="ml-3 text-sm font-medium hidden md:block text-purple-200 group-hover:text-white transition-colors duration-300">
                 Aftab Miyan
-                <span className="block text-xs font-normal text-emerald-400/80 group-hover:text-emerald-200 transition-colors duration-300">
+                <span className="block text-xs font-normal text-purple-300/80 group-hover:text-purple-100 transition-colors duration-300">
                   Admin
                 </span>
               </span>

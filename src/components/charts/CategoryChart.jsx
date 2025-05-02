@@ -10,7 +10,7 @@ import {
 } from "recharts";
 
 const CategoryChart = ({ data }) => {
-  // Process data with truncated names and custom colors
+  // Process data with truncated names and premium colors
   const processedData = data.map((item, index) => ({
     ...item,
     displayCategory: item.category.length > 20 
@@ -19,10 +19,12 @@ const CategoryChart = ({ data }) => {
     color: getCategoryColor(index, data.length)
   }));
 
-  // Dynamic color generator based on index
+  // Premium color generator with blue/emerald gradient
   function getCategoryColor(index, total) {
-    const hue = (index * (360 / total)) % 360;
-    return `hsl(${hue}, 70%, 60%)`;
+    const baseHue = 200; // Blue base
+    const hueVariation = 60; // Range for color variation
+    const hue = baseHue + (index * (hueVariation / total));
+    return `hsl(${hue}, 80%, 65%)`;
   }
 
   const CustomTooltip = ({ active, payload, label }) => {
@@ -32,15 +34,18 @@ const CategoryChart = ({ data }) => {
       );
       
       return (
-        <div className="bg-gray-800/90 border border-gray-700 rounded-lg shadow-xl p-4 backdrop-blur-sm">
+        <div className="bg-gray-900/95 border border-gray-700 rounded-lg shadow-2xl p-4 backdrop-blur-md">
           <div className="flex items-center mb-2">
             <div 
-              className="w-3 h-3 rounded-full mr-2" 
-              style={{ backgroundColor: payload[0].payload.color }}
+              className="w-3 h-3 rounded-full mr-2 shadow-sm"
+              style={{ 
+                background: `linear-gradient(135deg, ${payload[0].payload.color}, #10b981)`,
+                boxShadow: `0 0 0 2px rgba(16, 185, 129, 0.3)`
+              }}
             ></div>
             <p className="text-sm font-medium text-white">{originalItem.category}</p>
           </div>
-          <p className="text-lg font-semibold text-indigo-300">
+          <p className="text-lg font-semibold bg-gradient-to-r from-cyan-300 to-emerald-300 bg-clip-text text-transparent">
             {payload[0].value} <span className="text-xs text-gray-400">alerts</span>
           </p>
           <div className="mt-2 h-px w-full bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
@@ -54,18 +59,20 @@ const CategoryChart = ({ data }) => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 border border-gray-700/50 rounded-xl p-6 shadow-2xl backdrop-blur-sm">
+    <div className="bg-gradient-to-br from-gray-900 to-gray-800/90 border border-gray-700/30 rounded-xl p-6 shadow-2xl backdrop-blur-sm">
       <div className="flex items-start justify-between mb-6">
         <div>
           <h3 className="text-xl font-semibold text-white">
-            <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
               Threat Categories
             </span>
           </h3>
           <p className="text-xs text-gray-400 mt-1">Distribution by alert type</p>
         </div>
-        <div className="flex items-center px-3 py-1 rounded-full bg-indigo-900/30 border border-indigo-700/50">
-          <span className="text-xs text-indigo-300">Real-time</span>
+        <div className="flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-cyan-900/30 to-emerald-900/30 border border-cyan-700/30 shadow-sm">
+          <span className="text-xs bg-gradient-to-r from-cyan-300 to-emerald-300 bg-clip-text text-transparent">
+            Real-time
+          </span>
         </div>
       </div>
 
@@ -91,8 +98,8 @@ const CategoryChart = ({ data }) => {
                 x2="1" 
                 y2="0"
               >
-                <stop offset="0%" stopColor={item.color} stopOpacity={0.8} />
-                <stop offset="100%" stopColor={item.color} stopOpacity={0.4} />
+                <stop offset="0%" stopColor={item.color} stopOpacity={0.9} />
+                <stop offset="100%" stopColor="#10b981" stopOpacity={0.7} />
               </linearGradient>
             ))}
           </defs>
@@ -102,7 +109,7 @@ const CategoryChart = ({ data }) => {
             horizontal={true} 
             vertical={false} 
             stroke="#334155" 
-            opacity={0.3}
+            opacity={0.2}
           />
           
           <XAxis 
@@ -123,7 +130,7 @@ const CategoryChart = ({ data }) => {
           
           <Tooltip 
             content={<CustomTooltip />}
-            cursor={{ fill: 'rgba(255, 255, 255, 0.05)' }}
+            cursor={{ fill: 'rgba(16, 185, 129, 0.05)' }}
           />
           
           <Bar 
@@ -135,8 +142,8 @@ const CategoryChart = ({ data }) => {
               <Cell 
                 key={`cell-${index}`}
                 fill={`url(#gradient-${index})`}
-                stroke={entry.color}
-                strokeWidth={1}
+                stroke={`url(#gradient-${index})`}
+                strokeWidth={0.5}
               />
             ))}
           </Bar>
@@ -144,7 +151,9 @@ const CategoryChart = ({ data }) => {
       </ResponsiveContainer>
 
       <div className="mt-4 text-xs text-gray-500 text-right">
-        Showing {data.length} of {data.length} categories • Updated: {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+        <span className="bg-gradient-to-r from-gray-600 to-gray-700 bg-clip-text text-transparent">
+          Showing {data.length} of {data.length} categories • Updated: {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+        </span>
       </div>
     </div>
   );

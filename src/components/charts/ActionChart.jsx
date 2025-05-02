@@ -3,12 +3,12 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recha
 const ActionChart = ({ data }) => {
   const RADIAN = Math.PI / 180;
   
-  // Enhanced color palette with gradients
+  // Premium dark theme gradient color palette
   const colorPalette = [
-    { name: 'Blocked', start: '#FF5C8D', end: '#FF2D6F' },
-    { name: 'Allowed', start: '#4CCD99', end: '#2DCC70' },
-    { name: 'Monitored', start: '#3B82F6', end: '#2563EB' },
-    { name: 'Quarantined', start: '#F59E0B', end: '#D97706' }
+    { name: 'Blocked', start: '#FF3860', end: '#FF144D', shadow: 'rgba(255, 56, 96, 0.4)' },
+    { name: 'Allowed', start: '#00D1B2', end: '#00B89A', shadow: 'rgba(0, 209, 178, 0.4)' },
+    { name: 'Monitored', start: '#485FC7', end: '#3A56C0', shadow: 'rgba(72, 95, 199, 0.4)' },
+    { name: 'Quarantined', start: '#FFDD57', end: '#FFD633', shadow: 'rgba(255, 221, 87, 0.4)' }
   ];
 
   const renderCustomizedLabel = ({
@@ -25,10 +25,11 @@ const ActionChart = ({ data }) => {
         fill="white" 
         textAnchor="middle" 
         dominantBaseline="central"
-        className="text-xs font-bold drop-shadow-md"
+        className="text-xs font-bold"
         style={{ 
           fontSize: '0.75rem',
-          textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)'
+          textShadow: '0 1px 3px rgba(0, 0, 0, 0.8)',
+          filter: 'drop-shadow(0 0 4px rgba(0,0,0,0.5))'
         }}
       >
         {`${(percent * 100).toFixed(0)}%`}
@@ -40,18 +41,16 @@ const ActionChart = ({ data }) => {
     if (active && payload && payload.length) {
       const total = data.reduce((sum, item) => sum + item.value, 0);
       const percentage = ((payload[0].value / total) * 100).toFixed(1);
+      const color = colorPalette.find(c => c.name === payload[0].name);
       
       return (
-        <div className="bg-gray-800/90 border border-gray-700 rounded-xl shadow-2xl p-4 backdrop-blur-sm">
+        <div className="bg-gray-900/95 border border-gray-700 rounded-xl shadow-2xl p-4 backdrop-blur-md">
           <div className="flex items-center mb-2">
             <div 
-              className="w-3 h-3 rounded-full mr-2" 
+              className="w-3 h-3 rounded-full mr-2 shadow-sm"
               style={{ 
-                background: `linear-gradient(135deg, ${
-                  colorPalette.find(c => c.name === payload[0].name)?.start || '#8884d8'
-                }, ${
-                  colorPalette.find(c => c.name === payload[0].name)?.end || '#8884d8'
-                })`
+                background: `linear-gradient(135deg, ${color?.start}, ${color?.end})`,
+                boxShadow: `0 0 6px ${color?.shadow}`
               }}
             ></div>
             <p className="text-sm font-medium text-white">{payload[0].name}</p>
@@ -60,7 +59,7 @@ const ActionChart = ({ data }) => {
             {payload[0].value.toLocaleString()}
             <span className="text-xs text-gray-400 ml-1">alerts</span>
           </p>
-          <div className="mt-2 h-px w-full bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
+          <div className="mt-2 h-px w-full bg-gradient-to-r from-transparent via-gray-700 to-transparent"></div>
           <p className="text-xs text-gray-300 mt-2">
             {percentage}% of total actions
           </p>
@@ -71,22 +70,27 @@ const ActionChart = ({ data }) => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 border border-gray-700/50 rounded-xl p-6 shadow-2xl backdrop-blur-sm">
-      <div className="flex items-start justify-between mb-6">
+    <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700/30 rounded-xl p-6 shadow-2xl backdrop-blur-sm relative overflow-hidden">
+      {/* Background glow effects */}
+      <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-purple-900/20 blur-3xl"></div>
+      <div className="absolute -bottom-20 -left-20 w-40 h-40 rounded-full bg-blue-900/20 blur-3xl"></div>
+      
+      <div className="flex items-start justify-between mb-6 relative z-10">
         <div>
           <h3 className="text-xl font-semibold text-white">
-            <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
               Security Actions
             </span>
           </h3>
           <p className="text-xs text-gray-400 mt-1">Distribution by response type</p>
         </div>
-        <div className="flex items-center px-3 py-1 rounded-full bg-indigo-900/30 border border-indigo-700/50">
-          <span className="text-xs text-indigo-300">Live</span>
+        <div className="flex items-center px-3 py-1 rounded-full bg-blue-900/30 border border-blue-700/50 backdrop-blur-sm">
+          <div className="w-2 h-2 rounded-full bg-blue-400 mr-2 animate-pulse"></div>
+          <span className="text-xs text-blue-300">Live</span>
         </div>
       </div>
 
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={300} className="relative z-10">
         <PieChart>
           <defs>
             {colorPalette.map((color, index) => (
@@ -99,7 +103,7 @@ const ActionChart = ({ data }) => {
                 y2="1"
               >
                 <stop offset="0%" stopColor={color.start} stopOpacity={0.9} />
-                <stop offset="100%" stopColor={color.end} stopOpacity={0.7} />
+                <stop offset="100%" stopColor={color.end} stopOpacity={0.8} />
               </linearGradient>
             ))}
           </defs>
@@ -114,7 +118,7 @@ const ActionChart = ({ data }) => {
             innerRadius={50}
             paddingAngle={2}
             dataKey="value"
-            animationDuration={1800}
+            animationDuration={1500}
             animationEasing="ease-out"
           >
             {data.map((entry, index) => {
@@ -123,8 +127,8 @@ const ActionChart = ({ data }) => {
                 <Cell 
                   key={`cell-${index}`}
                   fill={`url(#gradient-${colorPalette.findIndex(c => c.name === color.name)})`}
-                  stroke="#1E293B"
-                  strokeWidth={2}
+                  stroke="#111827"
+                  strokeWidth={1.5}
                 />
               );
             })}
@@ -132,7 +136,7 @@ const ActionChart = ({ data }) => {
           
           <Tooltip 
             content={<CustomTooltip />}
-            cursor={{ stroke: '#334155', strokeWidth: 1 }}
+            cursor={{ stroke: '#1F2937', strokeWidth: 1 }}
           />
           
           <Legend 
@@ -145,9 +149,10 @@ const ActionChart = ({ data }) => {
               return (
                 <span className="inline-flex items-center text-xs text-gray-300">
                   <span 
-                    className="inline-block w-2 h-2 rounded-full mr-2" 
+                    className="inline-block w-2.5 h-2.5 rounded-full mr-2 shadow-sm"
                     style={{ 
-                      background: `linear-gradient(135deg, ${color.start}, ${color.end})`
+                      background: `linear-gradient(135deg, ${color.start}, ${color.end})`,
+                      boxShadow: `0 0 6px ${color.shadow}`
                     }}
                   ></span>
                   {value}
@@ -158,7 +163,7 @@ const ActionChart = ({ data }) => {
         </PieChart>
       </ResponsiveContainer>
 
-      <div className="mt-4 flex justify-between items-center">
+      <div className="mt-4 flex justify-between items-center relative z-10">
         <div className="text-xs text-gray-500">
           {data.length} action types
         </div>
